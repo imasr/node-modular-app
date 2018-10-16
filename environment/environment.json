@@ -1,0 +1,20 @@
+{
+    "development": {
+        "PORT": 8080,
+        "MONGODB_URI": "mongodb://127.0.0.1:27017/nodeApi",
+        "secret_token": "itsParangatModularNodeAppSecretKey",
+        "email": "ashish.s@parangat.coom",
+        "emailPassword": "demo@123",
+        "host": "http://localhost:4200/#",
+        "User": "Ashish Singh"
+    },
+    "prod": {
+        "PORT": 8080,
+        "MONGODB_URI": "mongodb://127.0.0.1:27017/nodeApi",
+        "secret_token": "itsParangatModularNodeAppSecretKey",
+        "email": "ashish.s@parangat.coom",
+        "emailPassword": "demo@123",
+        "host": "http://localhost:4200/#",
+        "User": "Ashish Singh"
+    }
+}

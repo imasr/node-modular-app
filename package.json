@@ -1,0 +1,27 @@
+{
+    "name": "node-modular-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": " server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/imasr/node-modular-app.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/imasr/node-modular-app/issues"
+    },
+    "homepage": "https://github.com/imasr/node-modular-app#readme",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.4",
+        "mongoose": "^5.3.4",
+        "nodemon": "^1.18.4"
+    }
+}
