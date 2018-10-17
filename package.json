@@ -21,7 +21,10 @@
         "body-parser": "^1.18.3",
         "cors": "^2.8.4",
         "express": "^4.16.4",
+        "lodash": "^4.17.11",
         "mongoose": "^5.3.4",
-        "nodemon": "^1.18.4"
+        "nodemon": "^1.18.4",
+        "password-validator": "^4.1.1",
+        "validator": "^10.8.0"
     }
 }
