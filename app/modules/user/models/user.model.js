@@ -1,18 +1,16 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema(
     {
-        firstName: {
+        name: {
             type: String,
-            required: true
-        },
-        lastName: {
-            type: String,
-            required: true
+            required: [true, 'Name is Required']
         },
         phone: {
-            type: String,
+            type: Number,
             unique: true,
             sparse: true
         },
@@ -34,15 +32,42 @@ const UserSchema = new mongoose.Schema(
             required: true,
             minlength: 8
         },
-        avatar: {
-            type: String,
-            default: ""
+        acceptTerms: {
+            type: Boolean,
+            required: true
         }
     }, {
         timestamps: true,
         versionKey: false
     }
 );
+
+UserSchema.pre('save', function (next) {
+    console.log(this, 'sss')
+    if (!!this.password) {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(this.password, salt, (err, hash) => {
+                if (err) {
+                    return next(err);
+                }
+                this.password = hash;
+                next();
+            });
+        });
+    } else {
+        next();
+    }
+});
+
+// for generating jwt auth token
+
+UserSchema.methods.generateAuthToken = function () {
+    return new Promise((resolve, reject) => {
+        this.token = jwt.sign({ _id: this._id.toHexString() }, process.env.secret_token).toString();
+        resolve(this);
+    });
+};
+
 
 var User = mongoose.model("User", UserSchema);
 

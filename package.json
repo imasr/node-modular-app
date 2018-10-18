@@ -18,9 +18,11 @@
     },
     "homepage": "https://github.com/imasr/node-modular-app#readme",
     "dependencies": {
+        "bcrypt": "^3.0.2",
         "body-parser": "^1.18.3",
         "cors": "^2.8.4",
         "express": "^4.16.4",
+        "jsonwebtoken": "^8.3.0",
         "lodash": "^4.17.11",
         "mongoose": "^5.3.4",
         "nodemon": "^1.18.4",
