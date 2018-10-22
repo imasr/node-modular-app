@@ -8,9 +8,16 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
 exports.registration = data => {
+
     return validateInput.password_validator(data.password).then(result => {
         if (!result) {
             throw message.invalidPassword
+        }
+        if (!data.acceptTerms) {
+            throw message.acceptTerms
+        }
+        if (!data.name) {
+            throw message.userRequired
         }
         let user = new User(data);
         return user.save().then(response => {
@@ -27,7 +34,6 @@ exports.registration = data => {
 
 exports.login = data => {
     var body = pickUserCredentials(data);
-
     return User.findOne({ email: body.email })
         .then(user => {
             if (!user) {

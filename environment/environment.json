@@ -1,7 +1,7 @@
 {
     "development": {
         "PORT": 8080,
-        "MONGODB_URI": "mongodb://127.0.0.1:27017/node-modular-app",
+        "MONGODB_URI": "mongodb://127.0.0.1:27017/node-modular",
         "secret_token": "itsParangatModularNodeAppSecretKey",
         "email": "ashish.s@parangat.coom",
         "emailPassword": "demo@123",
@@ -10,7 +10,7 @@
     },
     "prod": {
         "PORT": 8080,
-        "MONGODB_URI": "mongodb://127.0.0.1:27017/node-modular-app",
+        "MONGODB_URI": "mongodb://127.0.0.1:27017/node-modular",
         "secret_token": "itsParangatModularNodeAppSecretKey",
         "email": "ashish.s@parangat.coom",
         "emailPassword": "demo@123",

@@ -1,4 +1,5 @@
 var passwordValidator = require('password-validator');
+const message = require("../../../../config/messages").msg;
 
 var schema = new passwordValidator();
 schema.is().min(8) // Minimum length 8
@@ -9,6 +10,9 @@ schema.is().min(8) // Minimum length 8
 
 exports.password_validator = password => {
     return new Promise(function (resolve, reject) {
+        if (!password) {
+            reject(message.invalidPassword);
+        }
         let validate = schema.validate(password);
         resolve(validate);
     });
