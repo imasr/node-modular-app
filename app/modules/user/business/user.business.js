@@ -1,15 +1,15 @@
-const message = require("../../../../config/messages").msg;
-const validateInput = require("./validation.business");
-const { User } = require("../models/user.model");
-const { errorHandler } = require("../../../helpers/errorHandling.helper");
-const { pickUserCredentials } = require("../../../helpers/pickProperties.helper");
-const { pickUserProfileResponse, pickRegistrationResponse } = require("../../../helpers/pickResponse.helper");
-const _ = require("lodash");
-const bcrypt = require("bcrypt");
+import { msg as message } from "../../../../config/messages";
+import { password_validator } from "./validation.business";
+import { User } from "../models/user.model";
+import { errorHandler } from "../../../helpers/errorHandling.helper";
+import { pickUserCredentials } from "../../../helpers/pickProperties.helper";
+import { pickUserProfileResponse, pickRegistrationResponse } from "../../../helpers/pickResponse.helper";
+import _ from "lodash";
+import { compare } from "bcrypt";
 
-exports.registration = async data => {
+const registration = async (data) => {
 
-    let validatePasssword = await validateInput.password_validator(data.password)
+    let validatePasssword = await password_validator(data.password)
     if (!validatePasssword) {
         throw message.invalidPassword
     }
@@ -27,15 +27,15 @@ exports.registration = async data => {
             status: 200,
             message: message.userRegistered
         };
-};
+}
 
-exports.login = async data => {
+const login = async (data) => {
     var body = pickUserCredentials(data);
     let user = await User.findOne({ email: body.email })
     if (!user) {
         throw message.userNotFound;
     }
-    let verifiedPassword = await bcrypt.compare(body.password, user.password)
+    let verifiedPassword = await compare(body.password, user.password)
     if (verifiedPassword) {
         let token = await user.generateAuthToken()
         if (token)
@@ -48,4 +48,8 @@ exports.login = async data => {
     } else {
         throw message.invalidCredentials
     }
+}
+module.exports = {
+    registration,
+    login
 };

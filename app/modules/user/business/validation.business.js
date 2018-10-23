@@ -1,5 +1,5 @@
-var passwordValidator = require('password-validator');
-const message = require("../../../../config/messages").msg;
+import passwordValidator from 'password-validator';
+import { msg as message } from "../../../../config/messages";
 
 var schema = new passwordValidator();
 schema.is().min(8) // Minimum length 8
@@ -8,7 +8,7 @@ schema.is().min(8) // Minimum length 8
     .has().digits() // Must have digits
     .has().symbols(); // Must have special character
 
-exports.password_validator = async password => {
+const password_validator = async (password) => {
     return await new Promise(function (resolve, reject) {
         if (!password) {
             reject(message.invalidPassword);
@@ -16,4 +16,7 @@ exports.password_validator = async password => {
         let validate = schema.validate(password);
         resolve(validate);
     });
-};
+}
+module.exports = {
+    password_validator
+}
