@@ -8,8 +8,8 @@ schema.is().min(8) // Minimum length 8
     .has().digits() // Must have digits
     .has().symbols(); // Must have special character
 
-exports.password_validator = password => {
-    return new Promise(function (resolve, reject) {
+exports.password_validator = async password => {
+    return await new Promise(function (resolve, reject) {
         if (!password) {
             reject(message.invalidPassword);
         }

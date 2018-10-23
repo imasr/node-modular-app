@@ -7,54 +7,45 @@ const { pickUserProfileResponse, pickRegistrationResponse } = require("../../../
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
-exports.registration = data => {
+exports.registration = async data => {
 
-    return validateInput.password_validator(data.password).then(result => {
-        if (!result) {
-            throw message.invalidPassword
-        }
-        if (!data.acceptTerms) {
-            throw message.acceptTerms
-        }
-        if (!data.name) {
-            throw message.userRequired
-        }
-        let user = new User(data);
-        return user.save().then(response => {
-            return {
-                result: pickRegistrationResponse(response),
-                status: 200,
-                message: message.userRegistered
-            };
-        });
-    }).catch(e => {
-        throw errorHandler(e);
-    });
+    let validatePasssword = await validateInput.password_validator(data.password)
+    if (!validatePasssword) {
+        throw message.invalidPassword
+    }
+    if (!data.acceptTerms) {
+        throw message.acceptTerms
+    }
+    if (!data.name) {
+        throw message.userRequired
+    }
+    let user = new User(data);
+    let savedData = await user.save()
+    if (savedData)
+        return {
+            result: pickRegistrationResponse(savedData),
+            status: 200,
+            message: message.userRegistered
+        };
 };
 
-exports.login = data => {
+exports.login = async data => {
     var body = pickUserCredentials(data);
-    return User.findOne({ email: body.email })
-        .then(user => {
-            if (!user) {
-                throw message.userNotFound;
-            }
-            return bcrypt.compare(body.password, user.password).then(response => {
-                if (response) {
-                    return user.generateAuthToken().then(token => {
-                        return {
-                            result: pickUserProfileResponse(user),
-                            status: 200,
-                            token: token.token,
-                            message: message.loggedIn
-                        };
-                    });
-                } else {
-                    throw message.invalidCredentials
-                }
-            })
-        })
-        .catch(e => {
-            throw errorHandler(e);
-        });
+    let user = await User.findOne({ email: body.email })
+    if (!user) {
+        throw message.userNotFound;
+    }
+    let verifiedPassword = await bcrypt.compare(body.password, user.password)
+    if (verifiedPassword) {
+        let token = await user.generateAuthToken()
+        if (token)
+            return {
+                result: pickUserProfileResponse(user),
+                status: 200,
+                token: token.token,
+                message: message.loggedIn
+            };
+    } else {
+        throw message.invalidCredentials
+    }
 };
