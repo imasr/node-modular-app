@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema(
     {
@@ -29,12 +28,58 @@ const UserSchema = new mongoose.Schema(
         },
         password: {
             type: String,
-            required: true,
-            minlength: 8
+            required: function () {
+                if (!!this.isGoogle || !!this.isFacebook || !!this.isLinkedln || !!this.isTwitter) {
+                    return false
+                }
+                return false
+            },
+            // minlength: 3
         },
         acceptTerms: {
             type: Boolean,
-            required: true
+            required: function () {
+                if (!!this.isGoogle || !!this.isFacebook || !!this.isLinkedln || !!this.isTwitter) {
+                    return false
+                }
+                return false
+            }
+        },
+        isGoogle: {
+            type: Boolean,
+        },
+        isFacebook: {
+            type: Boolean,
+        },
+        isLinkedln: {
+            type: Boolean,
+        },
+        isTwitter: {
+            type: Boolean,
+        },
+        facebookData: {
+            type: JSON,
+            required: function () {
+                return this.isFacebook == true;
+            }
+        },
+        googleData: {
+            type: JSON,
+            required: function () {
+                return this.isGoogle == true;
+            }
+        },
+        linkedlnData: {
+            type: JSON,
+            required: function () {
+                return this.isLinkedln == true;
+            }
+        },
+        twitterData: {
+            type: JSON,
+            required: function () {
+                return this.isTwitter == true;
+            }
         }
     }, {
         timestamps: true,
@@ -58,17 +103,9 @@ UserSchema.pre('save', function (next) {
     }
 });
 
-// for generating jwt auth token
-
-UserSchema.methods.generateAuthToken = function () {
-    return new Promise((resolve, reject) => {
-        this.token = jwt.sign({ _id: this._id.toHexString() }, process.env.secret_token).toString();
-        resolve(this);
-    });
-};
-
 
 var User = mongoose.model("User", UserSchema);
+
 
 module.exports = {
     User

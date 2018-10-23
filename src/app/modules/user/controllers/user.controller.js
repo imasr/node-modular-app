@@ -1,4 +1,4 @@
-import { registration, login } from "../business/user.business";
+import { registration, login, sociallogin } from "../business/user.business";
 import { errorHandler } from "../../../helpers/errorHandling.helper";
 
 // register a new user
@@ -23,7 +23,19 @@ const user_login = async (req, res) => {
     }
 }
 
+// login user with social account and generate refresh jwt token
+const social_login = async (req, res) => {
+    try {
+        const result = await sociallogin(req.body);
+        res.status(200).send(result);
+    }
+    catch (e) {
+        res.status(400).send(e);
+    }
+}
+
 module.exports = {
     user_register,
-    user_login
+    user_login,
+    social_login
 };
