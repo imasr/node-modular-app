@@ -10,6 +10,8 @@ const msg = {
     acceptTerms: "Please accept the terms to continue",
     invalidPassword: "Password validation failed",
     duplicateEmail: "User with provided email address already exists",
+    invalidUser: "User Credentials you have entered is invalid! Please Try Again",
+    passworNotSet: "Pasword doesn't exists in this account! Please Reset or login with social account"
 };
 
 module.exports = {

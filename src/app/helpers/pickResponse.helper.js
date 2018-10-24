@@ -9,7 +9,16 @@ exports.pickUserProfileResponse = data => {
     ]);
     return response;
 };
-
+exports.pickRegistrationData = data => {
+    var response = _.pick(data, [
+        "name",
+        "email",
+        "phone",
+        "password",
+        "acceptTerms"
+    ]);
+    return response;
+};
 exports.pickRegistrationResponse = data => {
     var response = _.pick(data, [
         "_id",
@@ -29,6 +38,7 @@ exports.pickSociailAccountCredentials = data => {
     return _.pick(data, [
         "name",
         "email",
+        "phone",
         "isGoogle",
         "googleData",
         "isFacebook",

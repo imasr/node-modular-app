@@ -30,7 +30,7 @@ const social_login = async (req, res) => {
         res.status(200).send(result);
     }
     catch (e) {
-        res.status(400).send(e);
+        res.status(400).send(errorHandler(e));
     }
 }
 

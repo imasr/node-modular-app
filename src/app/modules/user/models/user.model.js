@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema(
                 }
                 return false
             },
-            // minlength: 3
+            minlength: 8
         },
         acceptTerms: {
             type: Boolean,
