@@ -4,7 +4,7 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "nodemon --exec babel-node --presets es2015 ./compiled/server.js",
+        "start": "nodemon --exec babel-node --presets es2015 ./src/server.js",
         "compile": "babel src --out-dir .compiled --source-maps --watch"
     },
     "repository": {
