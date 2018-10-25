@@ -12,8 +12,8 @@ import { ssl_middleware } from "./app/middleware/ssl.middleware"
 import { router } from "./app/modules/user/routes/user.routes";
 
 const port = process.env.PORT
-var privateKey = fs.readFileSync('./../privatekey.pem').toString();
-var certificate = fs.readFileSync('./../certificate.pem').toString();
+var privateKey = fs.readFileSync('privatekey.pem').toString();
+var certificate = fs.readFileSync('certificate.pem').toString();
 var credentials = crypto.createCredentials({ key: privateKey, cert: certificate });
 
 var app = express();
