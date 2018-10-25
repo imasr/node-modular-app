@@ -12,6 +12,8 @@ const port = process.env.PORT
 var app = express();
 app.use(json())
 app.use(cors())
+app.use(morgan("dev"));
+
 app.enable("trust proxy");
 app.use(ssl_middleware);
 
