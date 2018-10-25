@@ -7,7 +7,7 @@ import { json } from "body-parser";
 import fs from "fs";
 
 import mongoose from "./db/mongoose";
-import { ssl_middleware } from "./app/middleware/ssl.middleware"
+// import { ssl_middleware } from "./app/middleware/ssl.middleware"
 
 import { router } from "./app/modules/user/routes/user.routes";
 
@@ -21,10 +21,10 @@ app.use(json())
 app.use(cors())
 
 app.use('/', router)
-app.setSecure(credentials);
 
-app.listen(port, () => {
-    console.log(`Server started at  ${port}, ${process.env.NODE_ENV}, ${process.env.MONGODB_URI}`);
-})
+https.createServer(app)
+    .listen(port, () => {
+        console.log(`Server started at  ${port}, ${process.env.NODE_ENV}, ${process.env.MONGODB_URI}`);
+    })
 
 
