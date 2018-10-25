@@ -12,7 +12,7 @@ const port = process.env.PORT
 var app = express();
 app.use(json())
 app.use(cors())
-
+app.enable("trust proxy");
 app.use(ssl_middleware);
 
 app.use('/', router)
