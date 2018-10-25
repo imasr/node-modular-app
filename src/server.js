@@ -15,7 +15,7 @@ app.use(cors())
 app.use('/', router)
 
 app.listen(port, () => {
-    console.log(`Server started at ${port}${process.env.NODE_ENV}`);
+    console.log(`Server started at ${port}, ${process.env.NODE_ENV}, ${process.env.MONGODB_URI}`);
 })
 
 
