@@ -1,6 +1,8 @@
 import './environment/environment';
 import express from "express";
 import cors from "cors";
+import morgan from "morgan";
+
 import { json } from "body-parser";
 import mongoose from "./db/mongoose";
 import { ssl_middleware } from "./app/middleware/ssl.middleware"
