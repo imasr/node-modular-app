@@ -2,7 +2,7 @@ import { msg as message } from "../../../../config/messages";
 import { password_validator } from "./validation.business";
 import { User } from "../models/user.model";
 import { pickUserProfileResponse, pickRegistrationData, pickRegistrationResponse, pickUserCredentials, pickSociailAccountCredentials } from "../../../helpers/pickResponse.helper";
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import { generateAuthToken } from "../../../util/generate.token";
 import { socialloginResonse } from "../../../helpers/commonResponse.helper";
 

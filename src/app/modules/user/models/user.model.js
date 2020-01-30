@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema(
     {
@@ -82,9 +82,9 @@ const UserSchema = new mongoose.Schema(
             }
         }
     }, {
-        timestamps: true,
-        versionKey: false
-    }
+    timestamps: true,
+    versionKey: false
+}
 );
 
 UserSchema.pre('save', function (next) {
